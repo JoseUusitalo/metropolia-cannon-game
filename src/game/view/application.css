@@ -1,0 +1,103 @@
+.validator-contextmenu {
+	-fx-background-color: #cc3333;
+	-fx-text-fill: white;
+	-fx-padding: 1.0;
+}
+
+.validator-contextmenu.label {
+	-fx-text-fill: white;
+}
+
+.validator-menuitem {
+	-fx-background-color: #cc3333;
+	-fx-text-fill: white;
+}
+
+.validator-menuitem .label {
+	-fx-text-fill: white;
+}
+
+.player-name.label  {
+	-fx-alignment: center;
+	-fx-text-alignment: center;
+	-fx-font-size: 30.0px;
+}
+
+.player-score.label  {
+	-fx-alignment: center;
+	-fx-text-alignment: center;
+	-fx-font-weight: bold;
+	-fx-font-size: 50.0px;
+}
+
+.highscores-title.label  {
+	-fx-alignment: center;
+	-fx-text-alignment: center;
+	-fx-font-weight: bold;
+	-fx-font-size: 20.0px;
+}
+
+.timelefttext.label  {
+	-fx-alignment: center;
+	-fx-text-alignment: center;
+	-fx-font-size: 20.0px;
+}
+
+/* Base style from http://fxexperience.com/2011/12/styling-fx-buttons-with-css/ */
+
+.bevelGray {
+    -fx-background-color:
+        linear-gradient(#f2f2f2, #d6d6d6),
+        linear-gradient(#fcfcfc 0.0%, #d9d9d9 20.0%, #d6d6d6 100.0%),
+        linear-gradient(#dddddd 0.0%, #f6f6f6 50.0%);
+    -fx-background-radius: 8.0,7.0,6.0;
+    -fx-background-insets: 0.0,1.0,2.0;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 7.0, 0.0 , 0.0 , 1.0 );
+    -fx-text-alignment: center;
+}
+
+.bevelGrayFakePress {
+    -fx-background-color:
+        linear-gradient(#f2f2f2, #d6d6d6),
+        linear-gradient(#fcfcfc 0.0%, #d9d9d9 20.0%, #d6d6d6 100.0%),
+        linear-gradient(#d8d8d8 0.0%, #efefef 50.0%);
+    -fx-background-radius: 8.0,7.0,6.0;
+    -fx-background-insets: 0.0,1.0,2.0;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 2.0, 0.0 , 0.0 , 1.0 );
+    -fx-text-alignment: center;
+}
+/*
+.bevelGray:hover {
+    -fx-background-color:
+        linear-gradient(#f2f2f2, #d6d6d6),
+        linear-gradient(#fcfcfc 0.0%, #d9d9d9 20.0%, #d6d6d6 100.0%),
+        linear-gradient(#dddddd 0.0%, #f6f6f6 50.0%);
+    -fx-background-radius: 8.0,7.0,6.0;
+    -fx-background-insets: 0.0,1.0,2.0;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 15.0, 0.0 , 0.0 , 1.0 );
+    -fx-text-alignment: center;
+}
+ */
+.bevelGray:pressed {
+    -fx-background-color:
+        linear-gradient(#f2f2f2, #d6d6d6),
+        linear-gradient(#fcfcfc 0.0%, #d9d9d9 20.0%, #d6d6d6 100.0%),
+        linear-gradient(#dddddd 0.0%, #f6f6f6 50.0%);
+    -fx-background-radius: 8.0,7.0,6.0;
+    -fx-background-insets: 0.0,1.0,2.0;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 2.0, 0.0 , 0.0 , 1.0 );
+    -fx-text-alignment: center;
+}
+
+.progbar-purple {
+	-fx-accent: purple;
+}
+
+.progbar-red {
+	-fx-accent: crimson;
+	-fx-control-inner-background: firebrick;
+}

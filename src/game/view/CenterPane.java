@@ -143,14 +143,14 @@ public class CenterPane implements EventHandler<ActionEvent>
 			lblPlayerScoreText.getStyleClass().add("player-score");
 
 			HBox ballCounter = new HBox();
-			Label ballLabel = new Label("Kuulia: ");
+			Label ballLabel = new Label("Cannonballs: ");
 			ballLabel.getStyleClass().add("player-name");
 			lblCannonballsLeft = new Label("");
 			lblCannonballsLeft.getStyleClass().add("player-name");
 			ballCounter.getChildren().addAll(ballLabel, lblCannonballsLeft);
 			ballCounter.setAlignment(Pos.BASELINE_CENTER);
 
-			Label timeLeftLabel = new Label("Tähtäysaikaa jäljellä");
+			Label timeLeftLabel = new Label("Aiming time left");
 			timeLeftLabel.getStyleClass().add("timelefttext");
 
 			// This is dumb if you ask me.
@@ -181,22 +181,22 @@ public class CenterPane implements EventHandler<ActionEvent>
 		{
 			double btnSize = 140;
 
-			btnShootUp = new Button("AMMU\nKORKEA");
+			btnShootUp = new Button("FIRE\nHIGH");
 			btnShootUp.setPrefHeight(btnSize);
 			btnShootUp.setPrefWidth(btnSize);
 			btnShootUp.setId(View.BUTTONS.get(0));
 
-			btnShootDown = new Button("AMMU\nMATALA");
+			btnShootDown = new Button("FIRE\nLOW");
 			btnShootDown.setPrefHeight(btnSize);
 			btnShootDown.setPrefWidth(btnSize);
 			btnShootDown.setId(View.BUTTONS.get(1));
 
-			btnTurnLeft = new Button("KÄÄNNÄ\nVASEMPAAN");
+			btnTurnLeft = new Button("TURN\nLEFT");
 			btnTurnLeft.setPrefHeight(btnSize);
 			btnTurnLeft.setPrefWidth(btnSize);
 			btnTurnLeft.setId(View.BUTTONS.get(2));
 
-			btnTurnRight = new Button("KÄÄNNÄ\nOIKEAAN");
+			btnTurnRight = new Button("TURN\nRIGHT");
 			btnTurnRight.setPrefHeight(btnSize);
 			btnTurnRight.setPrefWidth(btnSize);
 			btnTurnRight.setId(View.BUTTONS.get(3));

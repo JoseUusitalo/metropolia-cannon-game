@@ -44,7 +44,7 @@ public class BottomPane
 			vbox = new VBox();
 			vbox.setPadding(new Insets(20, 0, 0, 0));
 
-			Label angleLabel = new Label("Tykkitornin kulma");
+			Label angleLabel = new Label("Cannon Angle");
 			angleLabel.setMaxWidth(Double.MAX_VALUE);
 			angleLabel.setAlignment(Pos.BASELINE_CENTER);
 
@@ -54,7 +54,7 @@ public class BottomPane
 			progbarCannonAngle.getStyleClass().add("progbar-purple");
 			progbarCannonAngle.setMinHeight(50);
 
-			Label warning = new Label("Tykkitorni ei voi kääntyä enempää");
+			Label warning = new Label("Cannon cannot rotate any farther");
 			warning.setMaxWidth(Double.MAX_VALUE);
 			warning.setAlignment(Pos.BASELINE_CENTER);
 

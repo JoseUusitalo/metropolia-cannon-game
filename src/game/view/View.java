@@ -1,12 +1,11 @@
 package game.view;
 
-import game.controller.Controller;
-import game.model.EV3Robot;
-import game.model.HighscoreListRow;
-
 import java.util.Arrays;
 import java.util.List;
 
+import game.controller.Controller;
+import game.model.EV3Robot;
+import game.model.HighscoreListRow;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.application.Application;
@@ -143,7 +142,7 @@ public class View extends Application
 			});
 
 			_primaryStage.setScene(scene);
-			_primaryStage.setTitle("ILJO-3 TVT 14 Tykkipeli");
+			_primaryStage.setTitle("ILJO-3 TVT 14 Cannon Game");
 
 			_primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>()
 			{

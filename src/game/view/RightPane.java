@@ -1,5 +1,6 @@
 package game.view;
 
+import game.model.HighscoreListRow;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -8,7 +9,6 @@ import javafx.scene.control.TableView.ResizeFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
-import game.model.HighscoreListRow;
 
 /**
  * The right panel of the user interface. Contains the highscore list.
@@ -46,7 +46,7 @@ public class RightPane
 			bpane = new BorderPane();
 			bpane.setPadding(new Insets(0, 0, 0, 40));
 
-			Label highscoresTitle = new Label("Ennätykset");
+			Label highscoresTitle = new Label("Highscores");
 			highscoresTitle.getStyleClass().add("highscores-title");
 			highscoresTitle.setMaxWidth(Double.MAX_VALUE);
 
@@ -73,15 +73,15 @@ public class RightPane
 				}
 			});
 
-			TableColumn<HighscoreListRow, Integer> colPosition = new TableColumn<HighscoreListRow, Integer>("Sija");
+			TableColumn<HighscoreListRow, Integer> colPosition = new TableColumn<HighscoreListRow, Integer>("Position");
 			colPosition.setCellValueFactory(new PropertyValueFactory<HighscoreListRow, Integer>("position"));
 			colPosition.prefWidthProperty().bind(highscores.widthProperty().multiply(0.15));
 
-			TableColumn<HighscoreListRow, String> colName = new TableColumn<HighscoreListRow, String>("Nimi");
+			TableColumn<HighscoreListRow, String> colName = new TableColumn<HighscoreListRow, String>("Name");
 			colName.setCellValueFactory(new PropertyValueFactory<HighscoreListRow, String>("name"));
 			colName.prefWidthProperty().bind(highscores.widthProperty().multiply(0.55));
 
-			TableColumn<HighscoreListRow, Double> colScore = new TableColumn<HighscoreListRow, Double>("Pisteet");
+			TableColumn<HighscoreListRow, Double> colScore = new TableColumn<HighscoreListRow, Double>("Score");
 			colScore.setCellValueFactory(new PropertyValueFactory<HighscoreListRow, Double>("score"));
 
 			// If the total is 1.0 you get a useless scroll bar.

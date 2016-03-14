@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 
+import game.model.EV3Robot;
+import game.model.Highscore;
+import game.model.HighscoreList;
+import game.model.HighscoreListRow;
+import game.model.Player;
+import game.view.View;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,12 +17,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import game.model.EV3Robot;
-import game.model.Highscore;
-import game.model.HighscoreList;
-import game.model.HighscoreListRow;
-import game.model.Player;
-import game.view.View;
 
 /**
  * The controller in the MVC-model.
@@ -118,18 +118,18 @@ public class Controller
 		}
 		catch (UnknownHostException e)
 		{
-			view.errorMessage("Tuntematon isäntä: Väärä IP-osoite tai portti.");
+			view.errorMessage("Unknown host: Incorrect IP or port.");
 			e.printStackTrace();
 		}
 		catch (ConnectException e)
 		{
 			view.errorMessage(
-					"Yhdistys epäonnistui. Tarkista yhteystiedot ja varmista että Bluetooth-yhteys on käytössä.");
+					"Connection failed. Please check the connection details and confirm that the Bluetooth connection is on.");
 			e.printStackTrace();
 		}
 		catch (IOException e)
 		{
-			view.errorMessage("Tuntematon virhe.");
+			view.errorMessage("Unknown error.");
 			e.printStackTrace();
 		}
 
@@ -172,12 +172,12 @@ public class Controller
 			}
 			catch (IOException e)
 			{
-				view.errorMessage("Yhteyttä ei voida katkaista.");
+				view.errorMessage("Unable to disconnect.");
 				e.printStackTrace();
 			}
 			catch (NullPointerException e)
 			{
-				view.errorMessage("Yhteyden katkaisu epäonnistui, joitain tietovirtoja ei ole alustettu.");
+				view.errorMessage("Failed to disconnect, some data streams have not been initialized.");
 				e.printStackTrace();
 			}
 

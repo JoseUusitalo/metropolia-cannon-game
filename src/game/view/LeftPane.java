@@ -136,10 +136,10 @@ public class LeftPane
 				{
 					boolean ok = true;
 
-					MenuItem ipMissing = new MenuItem("Syötä IP-osoite.");
-					MenuItem portMissing = new MenuItem("Syötä portti.");
-					MenuItem portNegative = new MenuItem("Syötä positiivinen porttinumero.");
-					MenuItem portNotInt = new MenuItem("Syötä kokonaisluku.");
+					MenuItem ipMissing = new MenuItem("Input an IP-address.");
+					MenuItem portMissing = new MenuItem("Input a port.");
+					MenuItem portNegative = new MenuItem("Input a positive number.");
+					MenuItem portNotInt = new MenuItem("Input an integer.");
 
 					ipMissing.getStyleClass().add("validator-menuitem");
 					portMissing.getStyleClass().add("validator-menuitem");
@@ -243,7 +243,7 @@ public class LeftPane
 	{
 		VBox _vbox = new VBox(10.0);
 
-		Label name = new Label("Pelaaja");
+		Label name = new Label("Player");
 		fieldPlayerName = new TextField();
 		fieldPlayerName.setMaxWidth(prefWidth);
 
@@ -266,10 +266,10 @@ public class LeftPane
 			}
 		});
 
-		btnStartGame = new Button("Aloita");
+		btnStartGame = new Button("Start");
 		btnStartGame.setPrefWidth(prefWidth);
 
-		btnEndGame = new Button("Lopeta")
+		btnEndGame = new Button("End")
 		{
 			@Override
 			public void requestFocus()
@@ -324,7 +324,7 @@ public class LeftPane
 			{
 				boolean ok = true;
 
-				MenuItem nameMissing = new MenuItem("Syötä pelaajan nimi.");
+				MenuItem nameMissing = new MenuItem("Input a player name");
 
 				nameMissing.getStyleClass().add("validator-menuitem");
 
@@ -392,11 +392,11 @@ public class LeftPane
 			}
 		});
 
-		Label port = new Label("Portti");
+		Label port = new Label("Port");
 		fieldRobotPort = new TextField();
 		fieldRobotPort.setMaxWidth(prefWidth);
 
-		Button btnDefaults = new Button("Lataa oletukset");
+		Button btnDefaults = new Button("Load Defaults");
 		btnDefaults.setPrefWidth(prefWidth);
 
 		btnDefaults.setOnAction(new EventHandler<ActionEvent>()
@@ -408,10 +408,10 @@ public class LeftPane
 			}
 		});
 
-		btnConnectToRobot = new Button("Yhdistä");
+		btnConnectToRobot = new Button("Connect");
 		btnConnectToRobot.setPrefWidth(prefWidth);
 
-		btnDisconnectFromRobot = new Button("Katkaise yhteys");
+		btnDisconnectFromRobot = new Button("Disconnect");
 		btnDisconnectFromRobot.setPrefWidth(prefWidth);
 
 		_vbox.getChildren().addAll(ip, fieldRobotIP, port, fieldRobotPort, btnDefaults, btnConnectToRobot,

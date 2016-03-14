@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ConnectException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -32,7 +34,12 @@ public class EV3Robot
 	 * The socket for a remote connection to the robot.
 	 */
 	private Socket socket;
-
+	
+	/**
+	 * The server socket for debug mode.
+	 */
+	private ServerSocket serversocket;
+	
 	/**
 	 * An input stream through which this program receives the angle of the
 	 * robot's main motor.
@@ -159,29 +166,21 @@ public class EV3Robot
 	public void openFakeTestingConnection()
 	{
 		System.out.println("[EV3Robot] Opening fake socket...");
-		socket = new Socket();
-
-		System.out.println("[EV3Robot] Creating fake input stream.");
-		in = new DataInputStream(new InputStream()
+		try
 		{
+			serversocket = new ServerSocket(9999, 0, InetAddress.getByName(null));
+			socket = new Socket("127.0.0.1", 9999);
+			
+			System.out.println("[EV3Robot] Creating input stream.");
+			in = new DataInputStream(socket.getInputStream());
 
-			@Override
-			public int read() throws IOException
-			{
-				return 45;
-			}
-		});
-
-		System.out.println("[EV3Robot] Creating fake output stream.");
-		out = new DataOutputStream(new DataOutputStream(new OutputStream()
+			System.out.println("[EV3Robot] Creating output stream.");
+			out = new DataOutputStream(socket.getOutputStream());
+		}
+		catch (IOException e)
 		{
-
-			@Override
-			public void write(int b) throws IOException
-			{
-				// No need to write anything.
-			}
-		}));
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -239,6 +238,7 @@ public class EV3Robot
 		out.close();
 		in.close();
 		socket.close();
+		serversocket.close();
 	}
 
 	/**
@@ -400,17 +400,20 @@ public class EV3Robot
 			{
 				dataReader.debugModAngle(currentAngle + 5);
 				System.out.println("[EV3Robot] DEBUG: turnLeft indicator update");
-				controller.updateCannonAngleIndicator();
 			}
 			/*
-			 * Indicator update (in non-debug mode) handled as follows: turn
-			 * robot, robot turns, robot reports to PC about angle change, data
-			 * reader thread gets the new angle and calls setCurrentAngle here.
+			 * Indicator update (in non-debug mode) handled as follows:
+			 * - command to turn robot
+			 * - robot turns
+			 * - robot reports to PC about angle change
+			 * - data reader thread gets the new angle
+			 * - data reader thread calls setCurrentAngle method in this class
 			 */
 			return true;
 		}
 
 		System.out.println("[EV3Robot] Unable to force turn left: robot at maximum angle.");
+		controller.updateCannonAngleIndicator();
 		stopTurning();
 		return false;
 	}
@@ -436,18 +439,20 @@ public class EV3Robot
 				{
 					dataReader.debugModAngle(currentAngle + 5);
 					System.out.println("[EV3Robot] DEBUG: turnLeft indicator update");
-					controller.updateCannonAngleIndicator();
 				}
 				/*
-				 * Indicator update (in non-debug mode) handled as follows: turn
-				 * robot, robot turns, robot reports to PC about angle change,
-				 * data reader thread gets the new angle and calls
-				 * setCurrentAngle here.
+				 * Indicator update (in non-debug mode) handled as follows:
+				 * - command to turn robot
+				 * - robot turns
+				 * - robot reports to PC about angle change
+				 * - data reader thread gets the new angle
+				 * - data reader thread calls setCurrentAngle method in this class
 				 */
 				return true;
 			}
 
 			System.out.println("[EV3Robot] Unable to turn left: robot at maximum angle.");
+			controller.updateCannonAngleIndicator();
 			stopTurning();
 			return false;
 		}
@@ -475,9 +480,8 @@ public class EV3Robot
 
 				if (Controller.DEBUG)
 				{
-					dataReader.debugModAngle(currentAngle + 5);
+					dataReader.debugModAngle(currentAngle - 5);
 					System.out.println("[EV3Robot] DEBUG: turnRight indicator update");
-					controller.updateCannonAngleIndicator();
 				}
 				/*
 				 * Indicator update (in non-debug mode) handled as follows: turn
@@ -489,6 +493,7 @@ public class EV3Robot
 			}
 
 			System.out.println("[EV3Robot] Unable to turn right: robot at minimum angle.");
+			controller.updateCannonAngleIndicator();
 			stopTurning();
 			return false;
 		}
@@ -516,7 +521,6 @@ public class EV3Robot
 			{
 				dataReader.debugModAngle(currentAngle + 5);
 				System.out.println("[EV3Robot] DEBUG: turnRight indicator update");
-				controller.updateCannonAngleIndicator();
 			}
 			/*
 			 * Indicator update (in non-debug mode) handled as follows: turn
@@ -527,6 +531,7 @@ public class EV3Robot
 		}
 
 		System.out.println("[EV3Robot] Unable to force turn left: robot at minimum angle.");
+		controller.updateCannonAngleIndicator();
 		stopTurning();
 		return false;
 	}
@@ -558,6 +563,9 @@ public class EV3Robot
 			modBallsLeft(-1);
 			System.out.println("[EV3Robot] Waiting for a high shot to complete.");
 			setShootingInProgress(true);
+			
+			if (Controller.DEBUG)
+				dataReader.debugWrite("f");
 		}
 		else
 		{
@@ -655,6 +663,9 @@ public class EV3Robot
 		System.out.println("[EV3Robot] Turning to random angle: " + rand);
 
 		dataWriter.turnToAngle(rand);
+		
+		if (Controller.DEBUG)
+			dataReader.debugWrite("t");
 	}
 
 	/**
@@ -743,8 +754,7 @@ public class EV3Robot
 	 */
 	public boolean isReady()
 	{
-		System.out.println(
-				"[EV3Robot] Ready? " + shootingInProgress + " " + angleTurnInProgress + " " + robotControlEnabled);
+		printState();
 		return !shootingInProgress && !angleTurnInProgress && robotControlEnabled;
 	}
 
@@ -754,9 +764,7 @@ public class EV3Robot
 	 */
 	public void printState()
 	{
-		System.out.println("\tAngle turn in progress: " + angleTurnInProgress);
-		System.out.println("\tShooting in progress: " + shootingInProgress);
-		System.out.println("\tRobot control enabled: " + robotControlEnabled);
+		System.out.println("[EV3Robot] Shooting: " + shootingInProgress + " | Turning: " + angleTurnInProgress + " | Controllable: " + robotControlEnabled);
 	}
 
 	/**

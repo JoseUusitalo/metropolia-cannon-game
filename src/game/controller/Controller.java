@@ -30,7 +30,7 @@ public class Controller
 	 * but "null" remote connection. Used for testing the user interface and
 	 * business logic without access to the robot itself.
 	 */
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 
 	/**
 	 * Whether or not to print additional debugging info about GUI and input
@@ -40,6 +40,8 @@ public class Controller
 
 	/**
 	 * Whether or not to use the shot timer feature.
+	 * 
+	 * Note: This does not work at the moment.
 	 */
 	public static final boolean USE_TIMER = false;
 
@@ -205,7 +207,10 @@ public class Controller
 	 */
 	public void setConnectionDefaults()
 	{
-		view.setConnectionDefaults(getConnectionDefaults());
+		if (DEBUG)
+			view.setConnectionDefaults(new String[] {"DEBUG", "0"});
+		else
+			view.setConnectionDefaults(getConnectionDefaults());
 	}
 
 	/**
@@ -238,32 +243,25 @@ public class Controller
 		double oldProgress = view.getCannonAngleBarProgress();
 		int angle = robot.getCurrentAngle();
 		double progress = toPercentage(angle, EV3Robot.LIMIT_ANGLE_MIN, EV3Robot.LIMIT_ANGLE_MAX);
-
+		boolean lessThanZero = Double.compare(progress, 0.0) <= 0;
+		boolean moreThanOne = Double.compare(progress, 1.0) >= 0;
+		
 		// To prevent the bar from showing the "ambiguous progress" animation.
-		if (progress > 1.0)
-			progress = 1.0;
-		else if (progress < 0.0)
-			progress = 0.0;
-		view.setCannonAngleIndicator(progress);
-
-		if (DEBUG_INFO)
-		{
-			//System.out.println("[Controller] Updating angle to: " + angle);
-
-			// System.out.println("[Controller] Updating angle to: " + angle + "
-			// (" + progress + ") old " + oldProgress + " " + progress);
-		}
-
-		/*
-		 * The code prevents you from turning past the limit angles, if this is
-		 * attempted, the cannon angle does not change. If the angle does not
-		 * change, the progress does not change.
-		 */
-		if (oldProgress == progress)
+		if (lessThanZero || moreThanOne)
 		{
 			System.out.println("[Controller] At limit, flashing.");
 			view.flashRobotAngleBar();
+
+			if (lessThanZero)
+				progress = 0.0;
+			else
+				progress = 1.0;
 		}
+		
+		view.setCannonAngleIndicator(progress);
+
+		if (DEBUG_INFO)
+			System.out.println("[Controller] Updating angle to: " + angle + "(" + progress + ") old " + oldProgress + " " + progress);
 	}
 
 	/**

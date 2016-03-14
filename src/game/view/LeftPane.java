@@ -279,15 +279,9 @@ public class LeftPane
 		};
 		btnEndGame.setPrefWidth(prefWidth);
 
+		/* Does not work.
 		btnDemoMode = new Button("Demo");
 		btnDemoMode.setPrefWidth(prefWidth);
-
-		// Validator code adapted from:
-		// https://stackoverflow.com/questions/23579438/form-validator-message
-
-		final ContextMenu nameValidator = new ContextMenu();
-		nameValidator.getStyleClass().add("validator-contextmenu");
-		nameValidator.setAutoHide(false);
 
 		btnDemoMode.setOnAction(new EventHandler<ActionEvent>()
 		{
@@ -297,6 +291,15 @@ public class LeftPane
 				controller.startDemoMode();
 			}
 		});
+		*/
+		
+		// Validator code adapted from:
+		// https://stackoverflow.com/questions/23579438/form-validator-message
+
+		final ContextMenu nameValidator = new ContextMenu();
+		nameValidator.getStyleClass().add("validator-contextmenu");
+		nameValidator.setAutoHide(false);
+
 
 		btnEndGame.setOnAction(new EventHandler<ActionEvent>()
 		{
@@ -355,7 +358,7 @@ public class LeftPane
 			}
 		});
 
-		_vbox.getChildren().addAll(btnDemoMode, name, fieldPlayerName, btnStartGame, btnEndGame);
+		_vbox.getChildren().addAll(name, fieldPlayerName, btnStartGame, btnEndGame);
 		return _vbox;
 	}
 

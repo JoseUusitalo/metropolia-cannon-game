@@ -66,18 +66,26 @@ public class DataWriterThread extends Thread
 					{
 						try
 						{
-							System.out.println("[DataWriterThread] Write: '" + commandBuffer.get(0) + "'");
+							if (Controller.DEBUG)
+							{
+								System.out.println("[DataWriterThread] Debug 'write': '" + commandBuffer.get(0) + "'");
+							}
+							else
+							{
+								System.out.println("[DataWriterThread] Write: '" + commandBuffer.get(0) + "'");
+								
+								/*
+								 * This is the first piece of code that throws an
+								 * error (SocketException) when the program is shut
+								 * down in the robot.
+								 */
+								out.writeUTF(prevCommandString);
+								out.flush();
+							}
+							
 							prevCommandString = commandBuffer.get(0);
 							commandBuffer.remove(0);
-
-							/*
-							 * This is the first piece of code that throws an
-							 * error (SocketException) when the program is shut
-							 * down in the robot.
-							 */
-							out.writeUTF(prevCommandString);
-							out.flush();
-
+							
 							try
 							{
 								Thread.sleep(Controller.SLEEP_TIME);

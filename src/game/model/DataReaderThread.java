@@ -30,7 +30,7 @@ public class DataReaderThread extends Thread
 	 * </p>
 	 */
 	public static final List<Character> dataTypes = Collections
-			.unmodifiableList(Arrays.asList('a', 'i', 'c', 'f', 't', 'z'));
+			.unmodifiableList(Arrays.asList('a', 'i', 'c', 'f', 't', 'z', ' ', '-'));
 
 	/**
 	 * The input stream from where the angle is read from.
@@ -101,8 +101,8 @@ public class DataReaderThread extends Thread
 		robot = _robot;
 		player = _player;
 		controller = _controller;
-		input = null; // No data initally.
-		previousInput = null; // The real input should never be null.
+		input = " "; // No data initially.
+		previousInput = "-"; // No data symbol 2.
 	}
 
 	/**
@@ -117,8 +117,6 @@ public class DataReaderThread extends Thread
 			{
 				if (!Controller.DEBUG)
 					input = in.readUTF();
-				else
-					input = "z"; // Debug
 
 				if (!input.equals(previousInput))
 				{
@@ -147,8 +145,9 @@ public class DataReaderThread extends Thread
 							case 't':
 								robot.setAngleTurnInProgress(false);
 								break;
-							case 'z':
-								// Debug
+							case '-':
+							case ' ':
+								// Pass.
 								break;
 							default:
 								System.err.println("[DataReaderThread] Unknown command character!");
@@ -233,12 +232,40 @@ public class DataReaderThread extends Thread
 	}
 
 	/**
+	 * <p>
+	 * <b>FOR DEBUG USE ONLY.</b>
+	 * </p>
+	 * <p>
+	 * Fakes data read by this thread to read the data. Will not do
+	 * anything if debug mode is not enabled.
+	 * </p>
+	 *
+	 * @param _angle
+	 *            The data this thread reads.
+	 */
+	public void debugWrite(final String _data)
+	{
+		try
+		{
+			Thread.sleep(Controller.SLEEP_TIME * 2);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		
+		System.out.println("[DataReaderThread] Faking data: " + _data);
+		if (Controller.DEBUG)
+			input = _data;
+	}
+
+	/**
 	 * Clear all read data.
 	 */
 	public void clearBufferData()
 	{
 		System.out.println("[DataReaderThread] Clearing data");
-		previousInput = null;
-		input = null;
+		previousInput = "-";
+		input = " ";
 	}
 }

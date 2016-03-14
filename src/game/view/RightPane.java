@@ -73,7 +73,7 @@ public class RightPane
 				}
 			});
 
-			TableColumn<HighscoreListRow, Integer> colPosition = new TableColumn<HighscoreListRow, Integer>("Position");
+			TableColumn<HighscoreListRow, Integer> colPosition = new TableColumn<HighscoreListRow, Integer>("Pos.");
 			colPosition.setCellValueFactory(new PropertyValueFactory<HighscoreListRow, Integer>("position"));
 			colPosition.prefWidthProperty().bind(highscores.widthProperty().multiply(0.15));
 

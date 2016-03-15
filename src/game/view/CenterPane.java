@@ -226,8 +226,7 @@ public class CenterPane implements EventHandler<ActionEvent>
 
 	/**
 	 * Handles the <b>mouse click</b> on the buttons used for robot remote
-	 * control. Keyboard events are handled in {@link View}. This feature is
-	 * implemented and technically functional but practically useless.
+	 * control. Keyboard events are handled in {@link View}.
 	 *
 	 * @param event
 	 *            Mouse click event.
@@ -235,6 +234,6 @@ public class CenterPane implements EventHandler<ActionEvent>
 	@Override
 	public void handle(ActionEvent event)
 	{
-		// controller.buttonPress(event);
+		controller.mousePress(event);
 	}
 }

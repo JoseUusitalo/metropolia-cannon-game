@@ -1,13 +1,13 @@
 A two-part Java project for remote controlling a Lego Mindstorms EV3 robot with a wireless TCP/IP connection over Bluetooth developed by two 2nd year students (Ilkka Varjokunnas & me) of Metropolia University of Applied Sciences during 2015-10-14—2015-11-12.
 The robot package contains the code to be uploaded into the EV3 brick, the graphical user interface (built with JavaFX) and game logic are in the game package.
-A limited debug mode can be activated by editing the Controller.java which allows using the user interface without access to a Lego Mindstorms robot but it does not simulate the game logic in full.
+A limited debug mode can be activated by editing the Controller.java (it is active by default) which allows using the user interface without access to a Lego Mindstorms robot but it does not simulate the game logic in full.
 
 ## Required Lego Mindstorms EV3 Robot Parts ##
 See the *instructions* folder for full building instructions (generated with [Lego Digital Designer](http://ldd.lego.com/fi-fi/)) for building the robot.
 If the debug mode is not used, the code requires that at least the following parts are connected to the specified ports on the EV3 Brick. Part number in parentheses.
--  **Turning mechanism:** [Port C] Ms 2013 engine (6057952)
--  **Firing mechanism:** [Port D] small motor (6008577)
--  **Scoring sensor:** [Port #4] Ms, EV3, sensor, colour (6008919)
+- **Turning mechanism:** [Port C] Ms 2013 engine (6057952)
+- **Firing mechanism:** [Port D] small motor (6008577)
+- **Scoring sensor:** [Port #4] Ms, EV3, sensor, colour (6008919)
 
 ## Wireless Connection using an EV3 Brick ##
 1. Enable Bluetooth in the EV3 Brick.

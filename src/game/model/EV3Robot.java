@@ -561,6 +561,7 @@ public class EV3Robot
 
 			dataWriter.shootCannonHigh();
 			modBallsLeft(-1);
+			
 			System.out.println("[EV3Robot] Waiting for a high shot to complete.");
 			setShootingInProgress(true);
 			
@@ -571,20 +572,6 @@ public class EV3Robot
 		{
 			System.out.println("[EV3Robot] Cannot shoot high, robot busy.");
 		}
-	}
-
-	/**
-	 * Modify the number of cannonballs remaining in the cannon. Updates the
-	 * user interface on function call.
-	 *
-	 * @param n
-	 *            Use positive integers to add balls and negative integers to
-	 *            remove balls.
-	 */
-	private void modBallsLeft(final int n)
-	{
-		ballsLeft += n;
-		controller.setCannonballsLeft(ballsLeft);
 	}
 
 	/**
@@ -605,9 +592,30 @@ public class EV3Robot
 
 			System.out.println("[EV3Robot] Waiting for a low shot to complete.");
 			setShootingInProgress(true);
+
+			if (Controller.DEBUG)
+				dataReader.debugWrite("f");
+		}
+		else
+		{
+			System.out.println("[EV3Robot] Cannot shoot low, robot busy.");
 		}
 	}
 
+	/**
+	 * Modify the number of cannonballs remaining in the cannon. Updates the
+	 * user interface on function call.
+	 *
+	 * @param n
+	 *            Use positive integers to add balls and negative integers to
+	 *            remove balls.
+	 */
+	private void modBallsLeft(final int n)
+	{
+		ballsLeft += n;
+		controller.setCannonballsLeft(ballsLeft);
+	}
+	
 	/**
 	 * Checks if there are cannon balls left to fire. If not, ends the game for
 	 * the current player.

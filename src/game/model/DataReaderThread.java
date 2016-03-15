@@ -236,8 +236,8 @@ public class DataReaderThread extends Thread
 	 * <b>FOR DEBUG USE ONLY.</b>
 	 * </p>
 	 * <p>
-	 * Fakes data read by this thread to read the data. Will not do
-	 * anything if debug mode is not enabled.
+	 * Fakes data received from the robot.
+	 * Will not do anything if debug mode is not enabled.
 	 * </p>
 	 *
 	 * @param _angle
@@ -245,18 +245,20 @@ public class DataReaderThread extends Thread
 	 */
 	public void debugWrite(final String _data)
 	{
-		try
-		{
-			Thread.sleep(Controller.SLEEP_TIME * 2);
-		}
-		catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-		
-		System.out.println("[DataReaderThread] Faking data: " + _data);
 		if (Controller.DEBUG)
+		{
+			try
+			{
+				Thread.sleep(Controller.SLEEP_TIME * 2);
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			
+			System.out.println("[DataReaderThread] Faking data: " + _data);
 			input = _data;
+		}
 	}
 
 	/**
